@@ -90,6 +90,9 @@ export interface StylingOption {
   columnWidth?: number;
   listCellWidth?: string;
   rowHeight?: number;
+  titleLable?: string;
+  fromLable?: string;
+  toLable?: string;
   ganttHeight?: number;
   barCornerRadius?: number;
   handleWidth?: number;

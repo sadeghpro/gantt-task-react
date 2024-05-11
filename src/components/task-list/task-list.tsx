@@ -8,6 +8,9 @@ export type TaskListProps = {
   fontFamily: string;
   fontSize: string;
   rowHeight: number;
+  titleLable: string;
+  fromLable: string;
+  toLable: string;
   ganttHeight: number;
   scrollY: number;
   locale: string;
@@ -22,6 +25,9 @@ export type TaskListProps = {
     rowWidth: string;
     fontFamily: string;
     fontSize: string;
+    titleLable: string;
+    fromLable: string;
+    toLable: string;
   }>;
   TaskListTable: React.FC<{
     rowHeight: number;
@@ -41,6 +47,9 @@ export const TaskList: React.FC<TaskListProps> = ({
   fontFamily,
   fontSize,
   rowWidth,
+  titleLable,
+  fromLable,
+  toLable,
   rowHeight,
   scrollY,
   tasks,
@@ -66,6 +75,9 @@ export const TaskList: React.FC<TaskListProps> = ({
     fontFamily,
     fontSize,
     rowWidth,
+    titleLable,
+    fromLable,
+    toLable,
   };
   const selectedTaskId = selectedTask ? selectedTask.id : "";
   const tableProps = {

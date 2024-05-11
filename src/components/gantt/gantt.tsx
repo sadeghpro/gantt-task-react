@@ -29,6 +29,9 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
   headerHeight = 50,
   columnWidth = 60,
   listCellWidth = "155px",
+  titleLable = "Name",
+  fromLable = "From",
+  toLable = "To",
   rowHeight = 50,
   ganttHeight = 0,
   viewMode = ViewMode.Day,
@@ -433,6 +436,9 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
 
   const tableProps: TaskListProps = {
     rowHeight,
+    titleLable,
+    fromLable,
+    toLable,
     rowWidth: listCellWidth,
     fontFamily,
     fontSize,
