@@ -83,6 +83,8 @@ export interface DisplayOption {
    */
   locale?: string;
   rtl?: boolean;
+  weekName?: string;
+  quarterName?: string;
 }
 
 export interface StylingOption {

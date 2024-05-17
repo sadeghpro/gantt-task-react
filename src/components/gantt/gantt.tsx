@@ -50,6 +50,8 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
   milestoneBackgroundColor = "#f1c453",
   milestoneBackgroundSelectedColor = "#f29e4c",
   rtl = false,
+  weekName = "W",
+  quarterName = "Q",
   handleWidth = 8,
   timeStep = 300000,
   arrowColor = "grey",
@@ -408,6 +410,8 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
     fontFamily,
     fontSize,
     rtl,
+    weekName,
+    quarterName,
   };
   const barProps: TaskGanttContentProps = {
     tasks: barTasks,

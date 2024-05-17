@@ -20,6 +20,8 @@ export type CalendarProps = {
   columnWidth: number;
   fontFamily: string;
   fontSize: string;
+  weekName: string;
+  quarterName: string;
 };
 
 export const Calendar: React.FC<CalendarProps> = ({
@@ -31,6 +33,8 @@ export const Calendar: React.FC<CalendarProps> = ({
   columnWidth,
   fontFamily,
   fontSize,
+  weekName,
+  quarterName,
 }) => {
   const getCalendarValuesForYear = () => {
     const topValues: ReactChild[] = [];
@@ -38,7 +42,7 @@ export const Calendar: React.FC<CalendarProps> = ({
     const topDefaultHeight = headerHeight * 0.5;
     for (let i = 0; i < dateSetup.dates.length; i++) {
       const date = dateSetup.dates[i];
-      const bottomValue = date.getFullYear();
+      const bottomValue = date.toLocaleDateString(locale, {year: "numeric"});
       bottomValues.push(
         <text
           key={date.getTime()}
@@ -53,7 +57,7 @@ export const Calendar: React.FC<CalendarProps> = ({
         i === 0 ||
         date.getFullYear() !== dateSetup.dates[i - 1].getFullYear()
       ) {
-        const topValue = date.getFullYear().toString();
+        const topValue = date.toLocaleDateString(locale, {year: "numeric"});
         let xText: number;
         if (rtl) {
           xText = (6 + i + date.getFullYear() + 1) * columnWidth;
@@ -83,7 +87,7 @@ export const Calendar: React.FC<CalendarProps> = ({
     for (let i = 0; i < dateSetup.dates.length; i++) {
       const date = dateSetup.dates[i];
       // const bottomValue = getLocaleMonth(date, locale);
-      const quarter = "Q" + Math.floor((date.getMonth() + 3) / 3);
+      const quarter = quarterName + Math.floor((date.getMonth() + 3) / 3);
       bottomValues.push(
         <text
           key={date.getTime()}
@@ -98,7 +102,7 @@ export const Calendar: React.FC<CalendarProps> = ({
         i === 0 ||
         date.getFullYear() !== dateSetup.dates[i - 1].getFullYear()
       ) {
-        const topValue = date.getFullYear().toString();
+        const topValue = date.toLocaleDateString(locale, {year: "numeric"});
         let xText: number;
         if (rtl) {
           xText = (6 + i + date.getMonth() + 1) * columnWidth;
@@ -142,7 +146,7 @@ export const Calendar: React.FC<CalendarProps> = ({
         i === 0 ||
         date.getFullYear() !== dateSetup.dates[i - 1].getFullYear()
       ) {
-        const topValue = date.getFullYear().toString();
+        const topValue = date.toLocaleDateString(locale, {year: "numeric"});
         let xText: number;
         if (rtl) {
           xText = (6 + i + date.getMonth() + 1) * columnWidth;
@@ -176,10 +180,10 @@ export const Calendar: React.FC<CalendarProps> = ({
       let topValue = "";
       if (i === 0 || date.getMonth() !== dates[i - 1].getMonth()) {
         // top
-        topValue = `${getLocaleMonth(date, locale)}, ${date.getFullYear()}`;
+        topValue = `${getLocaleMonth(date, locale)}, ${date.toLocaleDateString(locale, {year: "numeric"})}`;
       }
       // bottom
-      const bottomValue = `W${getWeekNumberISO8601(date)}`;
+      const bottomValue =  `${weekName}${getWeekNumberISO8601(date)}`;
 
       bottomValues.push(
         <text
@@ -243,7 +247,7 @@ export const Calendar: React.FC<CalendarProps> = ({
 
         topValues.push(
           <TopPartOfCalendar
-            key={topValue + date.getFullYear()}
+            key={topValue + date.toLocaleDateString(locale, {year: "numeric"})}
             value={topValue}
             x1Line={columnWidth * (i + 1)}
             y1Line={0}
@@ -293,7 +297,7 @@ export const Calendar: React.FC<CalendarProps> = ({
         )}, ${date.getDate()} ${getLocaleMonth(date, locale)}`;
         topValues.push(
           <TopPartOfCalendar
-            key={topValue + date.getFullYear()}
+            key={topValue + date.toLocaleDateString(locale, {year: "numeric"})}
             value={topValue}
             x1Line={columnWidth * i + ticks * columnWidth}
             y1Line={0}
@@ -340,7 +344,7 @@ export const Calendar: React.FC<CalendarProps> = ({
         const topPosition = (date.getHours() - 24) / 2;
         topValues.push(
           <TopPartOfCalendar
-            key={topValue + displayDate.getFullYear()}
+            key={topValue + date.toLocaleDateString(locale, {year: "numeric"})}
             value={topValue}
             x1Line={columnWidth * i}
             y1Line={0}
