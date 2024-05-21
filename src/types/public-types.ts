@@ -95,6 +95,9 @@ export interface StylingOption {
   titleLable?: string;
   fromLable?: string;
   toLable?: string;
+  durationLable?: string;
+  durationDaysLable?: string;
+  progressLable?: string;
   ganttHeight?: number;
   barCornerRadius?: number;
   handleWidth?: number;

@@ -32,6 +32,9 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
   titleLable = "Name",
   fromLable = "From",
   toLable = "To",
+  durationLable = "Duration",
+  durationDaysLable = "day(s)",
+  progressLable = "Progress",
   rowHeight = 50,
   ganttHeight = 0,
   viewMode = ViewMode.Day,
@@ -491,6 +494,10 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
             taskListWidth={taskListWidth}
             TooltipContent={TooltipContent}
             rtl={rtl}
+            locale={locale}
+            durationLable={durationLable}
+            durationDaysLable={durationDaysLable}
+            progressLable={progressLable}
             svgWidth={svgWidth}
           />
         )}

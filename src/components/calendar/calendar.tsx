@@ -225,9 +225,7 @@ export const Calendar: React.FC<CalendarProps> = ({
     const dates = dateSetup.dates;
     for (let i = 0; i < dates.length; i++) {
       const date = dates[i];
-      const bottomValue = `${getLocalDayOfWeek(date, locale, "short")}, ${date
-        .getDate()
-        .toString()}`;
+      const bottomValue = `${getLocalDayOfWeek(date, locale, "short")}, ${date.toLocaleDateString(locale, {day: "numeric"})}`;
 
       bottomValues.push(
         <text
@@ -241,7 +239,7 @@ export const Calendar: React.FC<CalendarProps> = ({
       );
       if (
         i + 1 !== dates.length &&
-        date.getMonth() !== dates[i + 1].getMonth()
+        getLocaleMonth(date, locale) !== getLocaleMonth(dates[i + 1], locale)
       ) {
         const topValue = getLocaleMonth(date, locale);
 
@@ -289,12 +287,12 @@ export const Calendar: React.FC<CalendarProps> = ({
           {bottomValue}
         </text>
       );
-      if (i === 0 || date.getDate() !== dates[i - 1].getDate()) {
+      if (i === 0 || date.toLocaleDateString(locale, {day: "numeric"}) !== dates[i - 1].toLocaleDateString(locale, {day: "numeric"})) {
         const topValue = `${getLocalDayOfWeek(
           date,
           locale,
           "short"
-        )}, ${date.getDate()} ${getLocaleMonth(date, locale)}`;
+        )}, ${date.toLocaleDateString(locale, {day: "numeric"})} ${getLocaleMonth(date, locale)}`;
         topValues.push(
           <TopPartOfCalendar
             key={topValue + date.toLocaleDateString(locale, {year: "numeric"})}
@@ -334,13 +332,13 @@ export const Calendar: React.FC<CalendarProps> = ({
           {bottomValue}
         </text>
       );
-      if (i !== 0 && date.getDate() !== dates[i - 1].getDate()) {
+      if (i !== 0 && date.toLocaleDateString(locale, {day: "numeric"}) !== dates[i - 1].toLocaleDateString(locale, {day: "numeric"})) {
         const displayDate = dates[i - 1];
         const topValue = `${getLocalDayOfWeek(
           displayDate,
           locale,
           "long"
-        )}, ${displayDate.getDate()} ${getLocaleMonth(displayDate, locale)}`;
+        )}, ${displayDate.toLocaleDateString(locale, {day: "numeric"})} ${getLocaleMonth(displayDate, locale)}`;
         const topPosition = (date.getHours() - 24) / 2;
         topValues.push(
           <TopPartOfCalendar

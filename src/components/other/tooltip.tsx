@@ -17,10 +17,18 @@ export type TooltipProps = {
   rowHeight: number;
   fontSize: string;
   fontFamily: string;
+  locale: string;
+  durationLable: string;
+  durationDaysLable: string;
+  progressLable: string;
   TooltipContent: React.FC<{
     task: Task;
     fontSize: string;
     fontFamily: string;
+    locale: string;
+    durationLable: string;
+    durationDaysLable: string;
+    progressLable: string;
   }>;
 };
 export const Tooltip: React.FC<TooltipProps> = ({
@@ -34,6 +42,10 @@ export const Tooltip: React.FC<TooltipProps> = ({
   arrowIndent,
   fontSize,
   fontFamily,
+  locale,
+  durationLable,
+  durationDaysLable,
+  progressLable,
   headerHeight,
   taskListWidth,
   TooltipContent,
@@ -107,7 +119,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
       }
       style={{ left: relatedX, top: relatedY }}
     >
-      <TooltipContent task={task} fontSize={fontSize} fontFamily={fontFamily} />
+      <TooltipContent task={task} fontSize={fontSize} fontFamily={fontFamily} locale={locale} durationLable={durationLable} progressLable={progressLable} durationDaysLable={durationDaysLable}/>
     </div>
   );
 };
@@ -116,7 +128,11 @@ export const StandardTooltipContent: React.FC<{
   task: Task;
   fontSize: string;
   fontFamily: string;
-}> = ({ task, fontSize, fontFamily }) => {
+  locale: string;
+  durationLable: string;
+  durationDaysLable: string;
+  progressLable: string;
+}> = ({ task, fontSize, fontFamily, locale, durationLable, durationDaysLable, progressLable }) => {
   const style = {
     fontSize,
     fontFamily,
@@ -125,20 +141,16 @@ export const StandardTooltipContent: React.FC<{
     <div className={styles.tooltipDefaultContainer} style={style}>
       <b style={{ fontSize: fontSize + 6 }}>{`${
         task.name
-      }: ${task.start.getDate()}-${
-        task.start.getMonth() + 1
-      }-${task.start.getFullYear()} - ${task.end.getDate()}-${
-        task.end.getMonth() + 1
-      }-${task.end.getFullYear()}`}</b>
+      }: ${task.start.toLocaleDateString(locale)} - ${task.end.toLocaleDateString(locale)}`}</b>
       {task.end.getTime() - task.start.getTime() !== 0 && (
-        <p className={styles.tooltipDefaultContainerParagraph}>{`Duration: ${~~(
+        <p className={styles.tooltipDefaultContainerParagraph}>{`${durationLable}: ${~~(
           (task.end.getTime() - task.start.getTime()) /
           (1000 * 60 * 60 * 24)
-        )} day(s)`}</p>
+        )} ${durationDaysLable}`}</p>
       )}
 
       <p className={styles.tooltipDefaultContainerParagraph}>
-        {!!task.progress && `Progress: ${task.progress} %`}
+        {!!task.progress && `${progressLable}: ${task.progress} %`}
       </p>
     </div>
   );
